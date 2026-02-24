@@ -32,7 +32,7 @@ export default function HomePage() {
       .catch(() => {
         selectLocation(DEFAULT_LOCATION);
       });
-  }, []);
+  }, [currentLocation, requestLocation, selectLocation]);
 
   if (isLocating) {
     return (
@@ -84,7 +84,6 @@ export default function HomePage() {
           Log into you account to access more features
         </p>
       </div>
-      {/* Current weather hero section — replace with real UI */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center">
         <p className="text-sm text-gray-500 uppercase tracking-wide mb-1">
           {currentLocation?.name}

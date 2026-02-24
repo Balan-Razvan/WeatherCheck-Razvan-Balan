@@ -28,7 +28,7 @@ export default function SearchPage() {
     }, 300)
 
     return () => clearTimeout(timeout)
-  }, [query]) 
+  }, [clearSearch, search, query]) 
 
   const handleSelect = (result) => {
     const location = {
