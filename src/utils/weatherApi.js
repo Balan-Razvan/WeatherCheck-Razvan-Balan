@@ -59,7 +59,7 @@ export async function fetchAirQuality(latitude, longitude, options = {}) {
     timezone,
   })
 
-  const response = await fetch(`${API_BASE_URL}/air-quality?${params}`)
+  const response = await fetch(`${API_BASE_URL}/forecast?${params}`)
 
   if (!response.ok) {
     throw new Error(`Air quality request failed: ${response.status}`)
