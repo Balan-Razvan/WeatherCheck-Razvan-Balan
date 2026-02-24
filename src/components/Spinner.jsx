@@ -1,4 +1,4 @@
-export default function LoadingSpinner({ size = 'md', className = '' }) {
+export default function Spinner({ size = 'md', className = '' }) {
   const sizes = {
     sm: 'h-5 w-5',
     md: 'h-8 w-8',

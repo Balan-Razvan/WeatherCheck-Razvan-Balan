@@ -5,7 +5,7 @@ import {
 
 export function useWeather() {
     const dispatch = useDispatch();
-    const weather = useSelector((state) => state.waeather);
+    const weather = useSelector((state) => state.weather);
     const {temperatureUnit, windSpeedUnit} = useSelector((state) => state.ui);
 
     const loadForecast = (latitude, longitude) => {
