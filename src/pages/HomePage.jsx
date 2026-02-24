@@ -4,7 +4,7 @@ import { useGeolocation } from "../hooks/useGeolocation";
 import { DEFAULT_LOCATION } from "../utils/constants";
 import LoadingSpinner from "../components/Spinner";
 import ErrorMessage from "../components/Error";
-import WeatherIcon from "../components/WeatherIcont";
+import WeatherIcon from "../components/WeatherIcon";
 
 export default function HomePage() {
   const {

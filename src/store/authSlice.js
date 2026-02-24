@@ -31,7 +31,9 @@ export const signOut = createAsyncThunk(
 )
 
 function extractRole(user) {
-  return user?.user_metadata?.role || 'user'
+  return (
+    user?.app_metadata?.role || user?.user_metadata?.role || user?.role || 'user'
+  )
 }
 
 const authSlice = createSlice({
