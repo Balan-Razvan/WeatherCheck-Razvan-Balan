@@ -10,12 +10,9 @@ export default function SearchPage() {
     searchResults,
     isSearching,
     searchError,
-    savedLocations,
     search,
     clearSearch,
     selectLocation,
-    saveLocation,
-    unsaveLocation,
   } = useWeather()
 
   useEffect(() => {
@@ -43,11 +40,6 @@ export default function SearchPage() {
     navigate('/')
   }
 
-  const isSaved = (result) =>
-    savedLocations.some(
-      (loc) =>
-        loc.latitude === result.latitude && loc.longitude === result.longitude
-    )
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -89,64 +81,9 @@ export default function SearchPage() {
                   {[result.admin1, result.country].filter(Boolean).join(', ')}
                 </p>
               </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  isSaved(result)
-                    ? unsaveLocation(result)
-                    : saveLocation({
-                        name: result.name,
-                        latitude: result.latitude,
-                        longitude: result.longitude,
-                        country: result.country || '',
-                      })
-                }}
-                className={`ml-4 text-sm px-3 py-1 rounded-full border transition-colors ${
-                  isSaved(result)
-                    ? 'bg-blue-50 text-blue-600 border-blue-200'
-                    : 'text-gray-400 border-gray-200 hover:text-blue-600 hover:border-blue-200'
-                }`}
-              >
-                {isSaved(result) ? 'Saved' : 'Save'}
-              </button>
             </li>
           ))}
         </ul>
-      )}
-
-      {savedLocations.length > 0 && (
-        <div>
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">
-            Saved Locations
-          </h2>
-          <ul className="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-100">
-            {savedLocations.map((loc) => (
-              <li
-                key={`${loc.latitude}-${loc.longitude}`}
-                className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
-              >
-                <button
-                  onClick={() => {
-                    selectLocation(loc)
-                    navigate('/')
-                  }}
-                  className="flex-1 text-left"
-                >
-                  <p className="font-medium text-gray-900">{loc.name}</p>
-                  {loc.country && (
-                    <p className="text-sm text-gray-500">{loc.country}</p>
-                  )}
-                </button>
-                <button
-                  onClick={() => unsaveLocation(loc)}
-                  className="ml-4 text-sm text-red-400 hover:text-red-600 transition-colors"
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
       )}
     </div>
   )
