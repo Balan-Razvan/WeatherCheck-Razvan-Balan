@@ -6,7 +6,7 @@ import { toggleMobileMenu, closeMobileMenu } from '../store/uiSlice'
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/search', label: 'Search' },
-  { to: '/forecast', label: 'Forecast' },
+  { to: '/recents', label: 'Recents' },
   { to: '/air-quality', label: 'Air Quality' },
 ]
 

@@ -59,7 +59,6 @@ export default function AirQualityPage() {
         </p>
       </div>
 
-      {/* Placeholder: implement AQI gauge, pollutant breakdown here */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">
           Air Quality Index

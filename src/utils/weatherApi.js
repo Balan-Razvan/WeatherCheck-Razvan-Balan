@@ -1,6 +1,7 @@
 
 import {
   API_BASE_URL,
+  AIR_QUALITY_API_URL,
   GEOCODING_API_URL,
   FORECAST_CURRENT_PARAMS,
   FORECAST_HOURLY_PARAMS,
@@ -59,7 +60,7 @@ export async function fetchAirQuality(latitude, longitude, options = {}) {
     timezone,
   })
 
-  const response = await fetch(`${API_BASE_URL}/forecast?${params}`)
+  const response = await fetch(`${AIR_QUALITY_API_URL}/air-quality?${params}`)
 
   if (!response.ok) {
     throw new Error(`Air quality request failed: ${response.status}`)
