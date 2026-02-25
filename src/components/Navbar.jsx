@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleMobileMenu, closeMobileMenu } from '../store/uiSlice'
 
 const NAV_LINKS = [
-  { to: '/', label: 'Home' },
+  { to: '/home', label: 'Home' },
   { to: '/search', label: 'Search' },
   { to: '/recents', label: 'Recents' },
   { to: '/air-quality', label: 'Air Quality' },
@@ -20,27 +20,27 @@ export default function Navbar() {
   const handleClose = () => dispatch(closeMobileMenu())
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200">
+    <nav className="border-b border-border-subtle bg-base">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-14">
           <div className="flex items-center">
             <Link
               to="/"
-              className="text-xl font-bold text-blue-600"
+              className="text-sm tracking-[0.2em] uppercase text-fg-muted hover:text-fg transition-colors"
               onClick={handleClose}
             >
-              WeatherNow
+              WeatherCheck
             </Link>
 
-            <div className="hidden md:flex ml-10 space-x-4">
+            <div className="hidden md:flex ml-10 space-x-1">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 text-sm transition-colors ${
                     location.pathname === link.to
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      ? 'text-fg'
+                      : 'text-fg-muted hover:text-fg-secondary'
                   }`}
                 >
                   {link.label}
@@ -49,30 +49,30 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center gap-4">
             {isAuthenticated ? (
               <>
-                <span className="text-sm text-gray-500">{user?.email}</span>
+                <span className="text-xs text-fg-faint">{user?.email}</span>
                 <button
                   onClick={signOut}
-                  className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md hover:bg-gray-50 transition-colors"
+                  className="text-sm text-fg-muted hover:text-fg transition-colors"
                 >
-                  Sign Out
+                  Sign out
                 </button>
               </>
             ) : (
               <>
                 <Link
                   to="/login"
-                  className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md hover:bg-gray-50 transition-colors"
+                  className="text-sm text-fg-muted hover:text-fg transition-colors"
                 >
-                  Log In
+                  Sign in
                 </Link>
                 <Link
                   to="/signup"
-                  className="text-sm bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                  className="text-sm text-fg border border-border-muted px-4 py-1.5 rounded-full hover:bg-hover transition-colors"
                 >
-                  Sign Up
+                  Create account
                 </Link>
               </>
             )}
@@ -81,10 +81,10 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={handleToggle}
-              className="text-gray-600 hover:text-gray-900 p-2"
+              className="text-fg-muted hover:text-fg p-2 transition-colors"
               aria-label="Toggle menu"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMobileMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -97,52 +97,41 @@ export default function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden border-t border-border-subtle">
+          <div className="px-4 py-3 space-y-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 onClick={handleClose}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                className={`block px-2 py-2 text-sm transition-colors ${
                   location.pathname === link.to
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'text-fg'
+                    : 'text-fg-muted hover:text-fg-secondary'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
           </div>
-          <div className="border-t border-gray-200 px-4 py-3">
+          <div className="border-t border-border-subtle px-4 py-3">
             {isAuthenticated ? (
               <div className="space-y-2">
-                <p className="text-sm text-gray-500">{user?.email}</p>
+                <p className="text-xs text-fg-faint">{user?.email}</p>
                 <button
-                  onClick={() => {
-                    signOut()
-                    handleClose()
-                  }}
-                  className="text-sm text-gray-600 hover:text-gray-900"
+                  onClick={() => { signOut(); handleClose() }}
+                  className="text-sm text-fg-muted hover:text-fg transition-colors"
                 >
-                  Sign Out
+                  Sign out
                 </button>
               </div>
             ) : (
               <div className="space-y-2">
-                <Link
-                  to="/login"
-                  onClick={handleClose}
-                  className="block text-sm text-gray-600 hover:text-gray-900"
-                >
-                  Log In
+                <Link to="/login" onClick={handleClose} className="block text-sm text-fg-muted hover:text-fg transition-colors">
+                  Sign in
                 </Link>
-                <Link
-                  to="/signup"
-                  onClick={handleClose}
-                  className="block text-sm text-blue-600 hover:text-blue-700"
-                >
-                  Sign Up
+                <Link to="/signup" onClick={handleClose} className="block text-sm text-fg">
+                  Create account
                 </Link>
               </div>
             )}

@@ -9,6 +9,21 @@ import {
   AIR_QUALITY_HOURLY_PARAMS,
 } from './constants'
 
+export async function reverseGeocode(latitude, longitude) {
+  const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new Error(`Reverse geocoding failed: ${response.status}`)
+  }
+
+  const data = await response.json()
+  const name = data.city || data.locality || data.principalSubdivision || 'Unknown'
+  const country = data.countryName || ''
+
+  return { name, country }
+}
+
 export async function searchCities(query) {
   if (!query || query.length < 2) return []
 
