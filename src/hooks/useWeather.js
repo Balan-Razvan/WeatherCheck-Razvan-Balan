@@ -21,7 +21,7 @@ export function useWeather() {
         dispatch(fetchAirQualityData({latitude, longitude, options:{}}))
     }
 
-    const selectLocation = (location) => {
+    const selectLocation = (location, { addToRecents = true } = {}) => {
         dispatch(setCurrentLocation(location));
         dispatch(
             fetchWeather({
@@ -30,7 +30,7 @@ export function useWeather() {
                 options: { temperatureUnit, windSpeedUnit },
             })
         ).then((result) => {
-            if (result.meta.requestStatus === 'fulfilled') {
+            if (addToRecents && result.meta.requestStatus === 'fulfilled') {
                 const current = result.payload?.current
                 dispatch(addRecentSearch({
                     name: location.name,

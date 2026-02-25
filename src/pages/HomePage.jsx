@@ -27,10 +27,10 @@ export default function HomePage() {
           latitude,
           longitude,
           country: "",
-        });
+        }, {addToRecents: false});
       })
       .catch(() => {
-        selectLocation(DEFAULT_LOCATION);
+        selectLocation(DEFAULT_LOCATION, {addToRecents: false});
       });
   }, [currentLocation, requestLocation, selectLocation]);
 
