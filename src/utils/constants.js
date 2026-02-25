@@ -1,6 +1,6 @@
 export const API_BASE_URL = 'https://api.open-meteo.com/v1';
-export const GEOCODING_API_URL = 'https://geocoding-api.open-meteo.com/v1';
 export const AIR_QUALITY_API_URL = 'https://air-quality-api.open-meteo.com/v1';
+export const GEOCODING_API_URL = 'https://geocoding-api.open-meteo.com/v1'
 
 export const FORECAST_HOURLY_PARAMS = [
   'temperature_2m',
@@ -80,3 +80,4 @@ export const WIND_SPEED_UNITS = {
   mph: { label: 'mph', param: 'mph' },
   ms: { label: 'm/s', param: 'ms' },
 }
+

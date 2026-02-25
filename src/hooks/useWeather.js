@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     fetchWeather, fetchAirQualityData, searchLocations, setCurrentLocation, clearSearchResults, addSavedLocation, removeSavedLocation
 } from '../store/weatherSlice';
-import { addRecentSearch } from "../store/recentsSlice";
+import { addRecentSearch } from '../store/recentsSlice';
 
 export function useWeather() {
     const dispatch = useDispatch();
@@ -23,16 +23,15 @@ export function useWeather() {
 
     const selectLocation = (location) => {
         dispatch(setCurrentLocation(location));
-        
         dispatch(
             fetchWeather({
                 latitude: location.latitude,
                 longitude: location.longitude,
-                options: {temperatureUnit, windSpeedUnit},
+                options: { temperatureUnit, windSpeedUnit },
             })
         ).then((result) => {
             if (result.meta.requestStatus === 'fulfilled') {
-                const current = result.payload?.current;
+                const current = result.payload?.current
                 dispatch(addRecentSearch({
                     name: location.name,
                     country: location.country || '',
@@ -46,7 +45,6 @@ export function useWeather() {
                 }))
             }
         })
-
         loadAirQuality(location.latitude, location.longitude);
     }   
 

@@ -40,7 +40,6 @@ export default function SearchPage() {
     navigate('/')
   }
 
-
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold text-gray-900">Search Location</h1>
@@ -85,6 +84,7 @@ export default function SearchPage() {
           ))}
         </ul>
       )}
+
     </div>
   )
 }

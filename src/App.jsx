@@ -7,7 +7,7 @@ import { setUser } from './store/authSlice'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import SearchPage from './pages/SearchPage'
-import ForecastPage from './pages/ForecastPage'
+import RecentsPage from './pages/RecentsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -17,16 +17,31 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({data: {session}}) => {
-      dispatch(setUser(session?.user ?? null));
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        supabase.auth.getUser().then(({ data: { user } }) => {
+          dispatch(setUser(user ?? session.user))
+        })
+      } else {
+        dispatch(setUser(null))
+      }
     })
+
     const {
-      data: {subscription},
+      data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      dispatch(setUser(session?.user ?? null));
+      if (session) {
+        supabase.auth.getUser().then(({ data: { user } }) => {
+          dispatch(setUser(user ?? session.user))
+        })
+      } else {
+        dispatch(setUser(null))
+      }
     })
+
     return () => subscription.unsubscribe()
   }, [dispatch])
+
 
   return (
     <BrowserRouter>
@@ -34,7 +49,7 @@ export default function App() {
         <Route element={< Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/forecast" element={<ForecastPage />} />
+          <Route path="/recents" element={<RecentsPage />} />
           <Route path="/air-quality" element={<AirQualityPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />

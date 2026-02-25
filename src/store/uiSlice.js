@@ -21,7 +21,7 @@ const uiSlice = createSlice({
     initialState: {
         temperatureUnit: saved?.temperatureUnit || defaults.temperatureUnit,
         windSpeedUnit: saved?.windSpeedUnit || defaults.windSpeedUnit,
-        isMobileMenuOpen: false,
+        isMobileMenuOpen: false, 
     },
     reducers: {
         setTemperatureUnit(state, action) {

@@ -40,10 +40,11 @@ export const searchLocations = createAsyncThunk(
 const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
-    currentLocation: null,
-    forecast: null,
-    airQuality: null,
-    searchResults: [],
+    currentLocation: null, 
+    forecast: null,        
+    airQuality: null,     
+    searchResults: [],     
+
     savedLocations: JSON.parse(localStorage.getItem('savedLocations') || '[]'),
 
     isLoadingForecast: false,
@@ -82,15 +83,15 @@ const weatherSlice = createSlice({
     builder
       .addCase(fetchWeather.pending, (state) => {
         state.isLoadingForecast = true
-        state.forecastError = null
+        state.forecastError = null       
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
         state.isLoadingForecast = false
-        state.forecast = action.payload
+        state.forecast = action.payload 
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.isLoadingForecast = false
-        state.forecastError = action.payload
+        state.forecastError = action.payload 
       })
 
       .addCase(fetchAirQualityData.pending, (state) => {
@@ -112,7 +113,7 @@ const weatherSlice = createSlice({
       })
       .addCase(searchLocations.fulfilled, (state, action) => {
         state.isSearching = false
-        state.searchResults = action.payload
+        state.searchResults = action.payload 
       })
       .addCase(searchLocations.rejected, (state, action) => {
         state.isSearching = false
@@ -122,7 +123,7 @@ const weatherSlice = createSlice({
 })
 
 export const {
-    setCurrentLocation, 
+    setCurrentLocation,
     clearSearchResults,
     removeSavedLocation,
     addSavedLocation,
