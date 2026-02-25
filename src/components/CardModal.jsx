@@ -8,14 +8,14 @@ const WEATHER_CODE_OPTIONS = Object.entries(WEATHER_CODES).map(
 function FormField({ label, value, onChange, type = 'text', ...props }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-700 mb-1">
+      <label className="block text-xs uppercase tracking-widest text-fg-muted mb-1.5">
         {label}
       </label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-3 py-2 rounded-lg bg-surface-raised border border-border-default text-sm text-fg placeholder-fg-placeholder focus:outline-none focus:border-border-strong transition-colors"
         {...props}
       />
     </div>
@@ -55,80 +55,34 @@ export default function CardModal({ card, onSave, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay">
+      <div className="bg-surface border border-border-default rounded-xl w-full max-w-md mx-4 p-6 max-h-[90vh] overflow-y-auto">
+        <h2 className="font-display text-lg text-fg mb-5">
           {card ? 'Edit Card' : 'Create Card'}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-3">
-          <FormField
-            label="City Name"
-            value={form.name}
-            onChange={(v) => handleChange('name', v)}
-            required
-          />
-          <FormField
-            label="Country"
-            value={form.country}
-            onChange={(v) => handleChange('country', v)}
-          />
+          <FormField label="City Name" value={form.name} onChange={(v) => handleChange('name', v)} required />
+          <FormField label="Country" value={form.country} onChange={(v) => handleChange('country', v)} />
           <div className="grid grid-cols-2 gap-3">
-            <FormField
-              label="Latitude"
-              type="number"
-              step="any"
-              value={form.latitude}
-              onChange={(v) => handleChange('latitude', v)}
-              required
-            />
-            <FormField
-              label="Longitude"
-              type="number"
-              step="any"
-              value={form.longitude}
-              onChange={(v) => handleChange('longitude', v)}
-              required
-            />
+            <FormField label="Latitude" type="number" step="any" value={form.latitude} onChange={(v) => handleChange('latitude', v)} required />
+            <FormField label="Longitude" type="number" step="any" value={form.longitude} onChange={(v) => handleChange('longitude', v)} required />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <FormField
-              label="Temperature"
-              type="number"
-              step="any"
-              value={form.temperature}
-              onChange={(v) => handleChange('temperature', v)}
-            />
-            <FormField
-              label="Feels Like"
-              type="number"
-              step="any"
-              value={form.feelsLike}
-              onChange={(v) => handleChange('feelsLike', v)}
-            />
+            <FormField label="Temperature" type="number" step="any" value={form.temperature} onChange={(v) => handleChange('temperature', v)} />
+            <FormField label="Feels Like" type="number" step="any" value={form.feelsLike} onChange={(v) => handleChange('feelsLike', v)} />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <FormField
-              label="Humidity (%)"
-              type="number"
-              value={form.humidity}
-              onChange={(v) => handleChange('humidity', v)}
-            />
-            <FormField
-              label="Wind Speed (km/h)"
-              type="number"
-              step="any"
-              value={form.windSpeed}
-              onChange={(v) => handleChange('windSpeed', v)}
-            />
+            <FormField label="Humidity (%)" type="number" value={form.humidity} onChange={(v) => handleChange('humidity', v)} />
+            <FormField label="Wind (km/h)" type="number" step="any" value={form.windSpeed} onChange={(v) => handleChange('windSpeed', v)} />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">
+            <label className="block text-xs uppercase tracking-widest text-fg-muted mb-1.5">
               Weather Condition
             </label>
             <select
               value={form.weatherCode}
               onChange={(e) => handleChange('weatherCode', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 rounded-lg bg-surface-raised border border-border-default text-sm text-fg focus:outline-none focus:border-border-strong transition-colors"
             >
               {WEATHER_CODE_OPTIONS.map((opt) => (
                 <option key={opt.code} value={opt.code}>
@@ -137,19 +91,19 @@ export default function CardModal({ card, onSave, onClose }) {
               ))}
             </select>
           </div>
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border-subtle">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 text-sm rounded-full border border-border-muted text-fg-muted hover:border-border-strong hover:text-fg transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+              className="px-4 py-2 text-sm rounded-full bg-cta text-cta-fg font-medium hover:bg-cta-hover transition-colors"
             >
-              {card ? 'Save Changes' : 'Create'}
+              {card ? 'Save' : 'Create'}
             </button>
           </div>
         </form>

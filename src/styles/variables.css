@@ -1,0 +1,42 @@
+
+@theme {
+
+  --color-base:           #f5f0eb;  
+  --color-surface:        #ede7e0;   
+  --color-surface-raised: #e4ddd4; 
+  --color-overlay:        rgba(40, 35, 30, 0.55); 
+
+  --color-border-subtle:  rgba(160, 100, 70, 0.10);
+  --color-border-default: rgba(160, 100, 70, 0.22);
+  --color-border-muted:   rgba(160, 100, 70, 0.36);
+  --color-border-strong:  rgba(160, 100, 70, 0.55);
+
+  --color-hover: rgba(160, 100, 70, 0.07);
+
+  --color-fg:             #1c1714;  
+  --color-fg-secondary:   #3d3530;  
+  --color-fg-muted:       #6b5c55;  
+  --color-fg-faint:       #9c8880;   
+  --color-fg-ghost:       #c0b5ae;  
+  --color-fg-placeholder: #b8aca5;  
+
+  --color-cta:       #2d2a26; 
+  --color-cta-hover: #1a1816;  
+  --color-cta-fg:    #f5f0eb;  
+
+  --color-danger-surface: rgba(255, 200, 200, 0.50);
+  --color-danger-border:  rgba(200,  60,  60, 0.30);
+  --color-danger-text:    #b91c1c;
+
+  --font-sans:    'Instrument Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif;
+
+}
+
+:root {
+  --size-display-xl: clamp(6rem,   18vw, 14rem);  
+  --size-display-lg: clamp(3.5rem, 10vw,  9rem);   
+  --size-display-md: clamp(1.8rem,  4vw,  3rem);   
+
+  --size-navbar: 3.5rem;  
+}

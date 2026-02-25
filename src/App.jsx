@@ -5,6 +5,7 @@ import { supabase } from './lib/supabaseClient'
 import { setUser } from './store/authSlice'
 
 import Layout from './components/Layout'
+import LandingPage from './pages/LandingPage'
 import HomePage from './pages/HomePage'
 import SearchPage from './pages/SearchPage'
 import RecentsPage from './pages/RecentsPage'
@@ -46,8 +47,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={< Layout />}>
-          <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route element={<Layout />}>
+          <Route path="/home" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/recents" element={<RecentsPage />} />
           <Route path="/air-quality" element={<AirQualityPage />} />

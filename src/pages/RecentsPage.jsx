@@ -19,10 +19,10 @@ function SortButton({ field, label, sortField, sortDir, onSort }) {
   return (
     <button
       onClick={() => onSort(field)}
-      className={`text-xs px-2 py-1 rounded border transition-colors ${
+      className={`text-xs px-3 py-1.5 rounded border transition-colors ${
         isActive
-          ? 'bg-blue-100 border-blue-300 text-blue-700'
-          : 'border-gray-200 text-gray-500 hover:bg-gray-100'
+          ? 'border-border-strong text-fg'
+          : 'border-border-subtle text-fg-faint hover:border-border-default hover:text-fg-muted'
       }`}
     >
       {label} {isActive ? (sortDir === 'asc' ? '↑' : '↓') : ''}
@@ -44,10 +44,8 @@ export default function RecentsPage() {
   const [showModal, setShowModal] = useState(false)
   const [editingCard, setEditingCard] = useState(null)
 
-  // filter based on search text
   const getFilteredItems = () => {
     if (!filterText.trim()) return items
-
     const lower = filterText.toLowerCase()
     return items.filter(
       (item) =>
@@ -56,18 +54,15 @@ export default function RecentsPage() {
     )
   }
 
-  // sort filtered
   const getSortedItems = (filteredItems) => {
     const copy = [...filteredItems]
     copy.sort((a, b) => {
       let valA = a[sortField]
       let valB = b[sortField]
-
       if (typeof valA === 'string') {
         valA = valA.toLowerCase()
         valB = (valB || '').toLowerCase()
       }
-
       if (valA < valB) return sortDir === 'asc' ? -1 : 1
       if (valA > valB) return sortDir === 'asc' ? 1 : -1
       return 0
@@ -75,21 +70,16 @@ export default function RecentsPage() {
     return copy
   }
 
-  // per page items
   const getPageItems = (sortedItems) => {
     const startIndex = (currentPage - 1) * perPage
-    const endIndex = startIndex + perPage
-    return sortedItems.slice(startIndex, endIndex)
+    return sortedItems.slice(startIndex, startIndex + perPage)
   }
 
   const filteredItems = getFilteredItems()
   const sortedItems = getSortedItems(filteredItems)
   const totalPages = Math.max(1, Math.ceil(sortedItems.length / perPage))
-
   const safePage = Math.min(currentPage, totalPages)
   const pageItems = getPageItems(sortedItems)
-
-
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -132,13 +122,7 @@ export default function RecentsPage() {
   }
 
   const handleAddComment = (cardId, text) => {
-    dispatch(
-      addComment({
-        cardId,
-        text,
-        author: user?.email || 'Anonymous',
-      })
-    )
+    dispatch(addComment({ cardId, text, author: user?.email || 'Anonymous' }))
   }
 
   const handleDeleteComment = (cardId, commentId) => {
@@ -149,21 +133,19 @@ export default function RecentsPage() {
     setExpandedId(expandedId === id ? null : id)
   }
 
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pt-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Recent Searches</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            {sortedItems.length} weather{' '}
-            {sortedItems.length === 1 ? 'search' : 'searches'} recorded
+          <h1 className="font-display text-2xl text-fg">Recent Searches</h1>
+          <p className="text-xs text-fg-faint mt-1">
+            {sortedItems.length} {sortedItems.length === 1 ? 'search' : 'searches'} recorded
           </p>
         </div>
         {isAdmin && (
           <button
             onClick={handleCreate}
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm border border-border-muted text-fg-secondary px-4 py-2 rounded-full hover:border-border-strong hover:text-fg transition-colors"
           >
             + Add Card
           </button>
@@ -174,31 +156,23 @@ export default function RecentsPage() {
         <input
           type="text"
           value={filterText}
-          onChange={(e) => {
-            setFilterText(e.target.value)
-            setCurrentPage(1)
-          }}
-          placeholder="Filter by city or country..."
-          className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          onChange={(e) => { setFilterText(e.target.value); setCurrentPage(1) }}
+          placeholder="Filter by city or country…"
+          className="flex-1 px-4 py-2.5 rounded-lg bg-surface border border-border-default text-fg placeholder-fg-placeholder focus:outline-none focus:border-border-strong transition-colors text-sm"
         />
         <select
           value={perPage}
-          onChange={(e) => {
-            setPerPage(Number(e.target.value))
-            setCurrentPage(1)
-          }}
-          className="px-3 py-2 rounded-lg border border-gray-300 text-sm bg-white"
+          onChange={(e) => { setPerPage(Number(e.target.value)); setCurrentPage(1) }}
+          className="px-3 py-2.5 rounded-lg bg-surface border border-border-default text-fg-secondary text-sm focus:outline-none focus:border-border-strong transition-colors"
         >
           {PER_PAGE_OPTIONS.map((n) => (
-            <option key={n} value={n}>
-              {n} per page
-            </option>
+            <option key={n} value={n}>{n} per page</option>
           ))}
         </select>
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <span className="text-xs text-gray-400 self-center mr-1">Sort by:</span>
+        <span className="text-xs text-fg-ghost self-center mr-1">Sort by:</span>
         <SortButton field="name" label="City" sortField={sortField} sortDir={sortDir} onSort={handleSort} />
         <SortButton field="temperature" label="Temp" sortField={sortField} sortDir={sortDir} onSort={handleSort} />
         <SortButton field="humidity" label="Humidity" sortField={sortField} sortDir={sortDir} onSort={handleSort} />
@@ -207,15 +181,13 @@ export default function RecentsPage() {
       </div>
 
       {sortedItems.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
-          <p className="text-gray-400">
-            {filterText
-              ? 'No matches found.'
-              : 'No recent searches yet. Search for a city to get started.'}
+        <div className="text-center py-20">
+          <p className="text-fg-muted text-sm">
+            {filterText ? 'No matches found.' : 'No recent searches yet. Search for a city to get started.'}
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {pageItems.map((card) => (
             <RecentSearchCard
               key={card.id}
@@ -228,26 +200,15 @@ export default function RecentsPage() {
               onEdit={() => handleEdit(card)}
               onDelete={() => handleDelete(card.id)}
               onAddComment={(text) => handleAddComment(card.id, text)}
-              onDeleteComment={(commentId) =>
-                handleDeleteComment(card.id, commentId)
-              }
+              onDeleteComment={(commentId) => handleDeleteComment(card.id, commentId)}
             />
           ))}
-
-          <Pagination
-            currentPage={safePage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
+          <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={setCurrentPage} />
         </div>
       )}
 
       {showModal && (
-        <CardModal
-          card={editingCard}
-          onSave={handleSaveModal}
-          onClose={handleCloseModal}
-        />
+        <CardModal card={editingCard} onSave={handleSaveModal} onClose={handleCloseModal} />
       )}
     </div>
   )

@@ -25,7 +25,7 @@ export default function SearchPage() {
     }, 300)
 
     return () => clearTimeout(timeout)
-  }, [clearSearch, search, query]) 
+  }, [clearSearch, search, query])
 
   const handleSelect = (result) => {
     const location = {
@@ -37,20 +37,20 @@ export default function SearchPage() {
       admin1: result.admin1 || '',
     }
     selectLocation(location)
-    navigate('/')
+    navigate('/home')
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">Search Location</h1>
+    <div className="max-w-2xl mx-auto space-y-6 pt-4">
+      <h1 className="font-display text-2xl text-fg">Search Location</h1>
 
       <div className="relative">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for a city..."
-          className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+          placeholder="City name…"
+          className="w-full px-4 py-3 rounded-lg bg-surface border border-border-default text-fg placeholder-fg-placeholder focus:outline-none focus:border-border-strong transition-colors"
           autoFocus
         />
         {isSearching && (
@@ -61,22 +61,19 @@ export default function SearchPage() {
       </div>
 
       {searchError && (
-        <p className="text-red-500 text-sm">{searchError}</p>
+        <p className="text-danger-text text-sm">{searchError}</p>
       )}
 
       {searchResults.length > 0 && (
-        <ul className="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-100">
+        <ul className="bg-surface border border-border-subtle rounded-lg divide-y divide-border-subtle overflow-hidden">
           {searchResults.map((result) => (
-            <li
-              key={result.id}
-              className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors"
-            >
+            <li key={result.id}>
               <button
                 onClick={() => handleSelect(result)}
-                className="flex-1 text-left"
+                className="w-full text-left px-4 py-3 hover:bg-hover transition-colors"
               >
-                <p className="font-medium text-gray-900">{result.name}</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-fg">{result.name}</p>
+                <p className="text-xs text-fg-muted mt-0.5">
                   {[result.admin1, result.country].filter(Boolean).join(', ')}
                 </p>
               </button>
@@ -84,7 +81,6 @@ export default function SearchPage() {
           ))}
         </ul>
       )}
-
     </div>
   )
 }
