@@ -9,7 +9,7 @@ export default function LoginPage() {
   const location = useLocation()
 
   if (isAuthenticated) {
-    const from = location.state?.from?.pathname || '/'
+    const from = location.state?.from?.pathname || '/home'
     return <Navigate to={from} replace />
   }
 
@@ -20,66 +20,62 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-12">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-        <h1 className="text-2xl font-bold text-gray-900 text-center mb-6">
-          Log In
-        </h1>
+    <div className="max-w-sm mx-auto pt-16">
+      <h1 className="font-display text-3xl text-fg mb-8">Sign in</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="you@example.com"
-            />
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {error && (
+          <div className="bg-danger-surface border border-danger-border rounded-lg p-3 text-sm text-danger-text">
+            {error}
           </div>
+        )}
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="••••••••"
-            />
-          </div>
+        <div>
+          <label htmlFor="email" className="block text-xs uppercase tracking-widest text-fg-muted mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="you@example.com"
+            className="w-full px-4 py-2.5 rounded-lg bg-surface border border-border-default text-fg placeholder-fg-placeholder focus:outline-none focus:border-border-strong transition-colors text-sm"
+          />
+        </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
+        <div>
+          <label htmlFor="password" className="block text-xs uppercase tracking-widest text-fg-muted mb-2">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+            placeholder="••••••••"
+            className="w-full px-4 py-2.5 rounded-lg bg-surface border border-border-default text-fg placeholder-fg-placeholder focus:outline-none focus:border-border-strong transition-colors text-sm"
+          />
+        </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Don&apos;t have an account?{' '}
-          <Link to="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
-            Sign Up
-          </Link>
-        </p>
-      </div>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full bg-cta text-cta-fg py-2.5 rounded-full text-sm font-medium hover:bg-cta-hover transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {isLoading ? 'Signing in…' : 'Sign in'}
+        </button>
+      </form>
+
+      <p className="text-sm text-fg-faint mt-6">
+        No account?{' '}
+        <Link to="/signup" className="text-fg-muted underline underline-offset-2 hover:text-fg transition-colors">
+          Create one
+        </Link>
+      </p>
     </div>
   )
 }
