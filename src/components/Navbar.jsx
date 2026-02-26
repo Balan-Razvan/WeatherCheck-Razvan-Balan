@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleMobileMenu, closeMobileMenu } from '../store/uiSlice'
+import DarkModeToggle from './DarkModeToggle'
 
 const NAV_LINKS = [
   { to: '/home', label: 'Home' },
@@ -51,6 +52,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
+            <DarkModeToggle />
             {isAuthenticated ? (
               <>
                 <span className="text-xs text-fg-faint">{user?.email}</span>
@@ -79,7 +81,8 @@ export default function Navbar() {
             )}
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-1">
+            <DarkModeToggle />
             <button
               onClick={handleToggle}
               className="text-fg-muted hover:text-fg p-2 transition-colors"
