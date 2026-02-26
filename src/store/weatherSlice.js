@@ -40,10 +40,10 @@ export const searchLocations = createAsyncThunk(
 const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
-    currentLocation: null, 
+    currentLocation: null,  
     forecast: null,        
-    airQuality: null,     
-    searchResults: [],     
+    airQuality: null,
+    searchResults: [],    
 
     savedLocations: JSON.parse(localStorage.getItem('savedLocations') || '[]'),
 
@@ -87,7 +87,7 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
         state.isLoadingForecast = false
-        state.forecast = action.payload 
+        state.forecast = action.payload  
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.isLoadingForecast = false

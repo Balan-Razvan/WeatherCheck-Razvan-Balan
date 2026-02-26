@@ -21,12 +21,12 @@ const recentsSlice = createSlice({
   reducers: {
     addRecentSearch(state, action) {
       const entry = {
-        id: crypto.randomUUID(),  
-        ...action.payload,        
+        id: crypto.randomUUID(), 
+        ...action.payload,       
         searchedAt: new Date().toISOString(), 
-        comments: [],            
+        comments: [],          
       }
-      state.items.unshift(entry) 
+      state.items.unshift(entry)  
       if (state.items.length > 50) {
         state.items = state.items.slice(0, 50) 
       }
