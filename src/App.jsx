@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { supabase } from './lib/supabaseClient'
 import { setUser } from './store/authSlice'
 
@@ -17,6 +17,11 @@ import ContactPage from './pages/ContactPage'
 
 export default function App() {
   const dispatch = useDispatch();
+  const darkMode = useSelector(state => state.ui.darkMode);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode])
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

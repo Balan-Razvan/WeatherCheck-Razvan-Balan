@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import DarkModeToggle from "../components/DarkModeToggle";
 
 export default function LandingPage() {
   const { isAuthenticated } = useAuth();
@@ -10,7 +11,8 @@ export default function LandingPage() {
         <span className="text-sm tracking-[0.2em] uppercase text-fg-muted">
           WeatherCheck
         </span>
-        <div className="flex items-center gap-6 text-sm text-fg-muted">
+        <div className="flex items-center gap-4 text-sm text-fg-muted">
+          <DarkModeToggle />
           {isAuthenticated ? (
             <Link to="/home" className="hover:text-fg transition-colors">
               Go to app →

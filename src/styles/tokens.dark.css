@@ -1,0 +1,31 @@
+
+.dark {
+
+  --color-base:           #0d1117;
+  --color-surface:        #161c27;
+  --color-surface-raised: #1e2636;
+  --color-overlay:        rgba(0, 5, 20, 0.70);
+
+  --color-border-subtle:  rgba(80, 140, 210, 0.10);
+  --color-border-default: rgba(80, 140, 210, 0.22);
+  --color-border-muted:   rgba(80, 140, 210, 0.36);
+  --color-border-strong:  rgba(80, 140, 210, 0.55);
+
+  --color-hover: rgba(80, 140, 210, 0.08);
+
+  --color-fg:             #e6edf5;
+  --color-fg-secondary:   #bcc8dc;
+  --color-fg-muted:       #7d95b5;
+  --color-fg-faint:       #4f6582;
+  --color-fg-ghost:       #2e3d55;
+  --color-fg-placeholder: #3d5270;
+
+  --color-cta:       #c8d8f0;
+  --color-cta-hover: #dde8f8;
+  --color-cta-fg:    #0d1117;
+
+  --color-danger-surface: rgba(200, 50, 50, 0.20);
+  --color-danger-border:  rgba(220, 80, 80, 0.40);
+  --color-danger-text:    #f87171;
+
+}

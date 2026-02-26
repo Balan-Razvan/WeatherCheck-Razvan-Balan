@@ -11,7 +11,16 @@ const loadPreferences = () => {
 
 const defaults = {
     temperatureUnit: 'celsius',
-    windSpeedUnit: 'kmh'
+    windSpeedUnit: 'kmh',
+    darkMode: false,
+}
+
+const savePreferences = (state) => {
+    localStorage.setItem('uiPreferences', JSON.stringify({
+        temperatureUnit: state.temperatureUnit,
+        windSpeedUnit: state.windSpeedUnit,
+        darkMode: state.darkMode,
+    }));
 }
 
 const saved = loadPreferences();
@@ -21,28 +30,21 @@ const uiSlice = createSlice({
     initialState: {
         temperatureUnit: saved?.temperatureUnit || defaults.temperatureUnit,
         windSpeedUnit: saved?.windSpeedUnit || defaults.windSpeedUnit,
+        darkMode: saved?.darkMode ?? defaults.darkMode,
         isMobileMenuOpen: false, 
     },
     reducers: {
         setTemperatureUnit(state, action) {
             state.temperatureUnit = action.payload;
-            localStorage.setItem(
-                'uiPreferences',
-                JSON.stringify({
-                    temperatureUnit: state.temperatureUnit,
-                    windSpeedUnit: state.windSpeedUnit,
-                })
-            )
+            savePreferences(state);
         },
         setWindSpeedUnit(state, action) {
             state.windSpeedUnit = action.payload;
-            localStorage.setItem(
-                'uiPreferences',
-                JSON.stringify({
-                    temperatureUnit: state.temperatureUnit,
-                    windSpeedUnit: state.windSpeedUnit,
-                })
-            )
+            savePreferences(state);
+        },
+        toggleDarkMode(state) {
+            state.darkMode = !state.darkMode;
+            savePreferences(state);
         },
         toggleMobileMenu(state) {
             state.isMobileMenuOpen = !state.isMobileMenuOpen;
@@ -57,6 +59,7 @@ export const {
   setTemperatureUnit,
   setWindSpeedUnit,
   toggleMobileMenu,
+  toggleDarkMode,
   closeMobileMenu,
 } = uiSlice.actions
 
