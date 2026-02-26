@@ -71,8 +71,8 @@ export default function LandingPage() {
       </main>
 
       <footer className="px-8 py-5 border-t border-border-subtle text-xs text-fg-faint flex justify-between">
-        <span>Powered by Open-Meteo</span>
-        <span>© {new Date().getFullYear()} WeatherCheck</span>
+        <span>Razvan Balan</span>
+        <span>{new Date().getFullYear()}</span>
       </footer>
     </div>
   );

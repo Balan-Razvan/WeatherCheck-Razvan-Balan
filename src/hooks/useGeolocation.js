@@ -31,7 +31,7 @@ export function useGeolocation() {
           setGeoError(message)
           reject(new Error(message))
         },
-        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+        { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 }
       )
     })
   }, [])
