@@ -29,7 +29,6 @@ export default function RecentSearchCard({
 
   return (
     <div className={`bg-surface border rounded-lg overflow-hidden transition-colors ${isExpanded ? 'border-border-muted' : 'border-border-subtle'}`}>
-      {/* Main row */}
       <div
         onClick={onToggleExpand}
         className="flex flex-wrap items-center gap-4 px-4 py-3 cursor-pointer hover:bg-hover transition-colors"
@@ -84,7 +83,6 @@ export default function RecentSearchCard({
         </div>
       </div>
 
-      {/* Expanded details */}
       {isExpanded && (
         <div className="px-4 py-4 border-t border-border-subtle">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -100,7 +98,6 @@ export default function RecentSearchCard({
             <DetailBox label="Searched" value={new Date(card.searchedAt).toLocaleString()} />
           </div>
 
-          {/* Comments */}
           <div className="border-t border-border-subtle pt-4">
             <h4 className="text-xs uppercase tracking-widest text-fg-faint mb-3">
               Comments ({card.comments?.length || 0})

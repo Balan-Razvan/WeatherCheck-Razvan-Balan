@@ -10,18 +10,26 @@ import {
 } from './constants'
 
 export async function reverseGeocode(latitude, longitude) {
-  const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-  const response = await fetch(url)
+  try {
+    const res = await fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+    )
+    if (res.ok) {
+      const data = await res.json()
+      const name = !data.description && (data.city || data.locality || data.principalSubdivision)
+      if (name) return { name, country: data.countryName || '' }
+    }
+  } catch {}
 
-  if (!response.ok) {
-    throw new Error(`Reverse geocoding failed: ${response.status}`)
-  }
+  const res = await fetch(
+    `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en`
+  )
+  if (!res.ok) throw new Error(`Reverse geocoding failed: ${res.status}`)
 
-  const data = await response.json()
-  const name = data.city || data.locality || data.principalSubdivision || 'Unknown'
-  const country = data.countryName || ''
-
-  return { name, country }
+  const data = await res.json()
+  const { address } = data
+  const name = address?.city || address?.town || address?.village || address?.county
+  return { name: name || 'Unknown', country: address?.country || '' }
 }
 
 export async function searchCities(query) {

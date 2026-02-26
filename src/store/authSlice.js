@@ -31,28 +31,25 @@ export const signOut = createAsyncThunk(
 )
 
 function extractRole(user) {
-  // console.log('[Auth Debug] Full user object:', JSON.stringify(user, null, 2))
-  // console.log('[Auth Debug] app_metadata:', user?.app_metadata)
-  // console.log('[Auth Debug] user_metadata:', user?.user_metadata)
 
   const role =
     user?.app_metadata?.role ||
     user?.user_metadata?.role ||
     user?.role ||
-    'user' 
+    'user'
 
- // console.log('[Auth Debug] Extracted role:', role)
+    
   return role
 }
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: null,        
-    role: 'user',       
-    isLoading: false,   
+    user: null,           
+    role: 'user',         
+    isLoading: false,    
     isInitialized: false, 
-    error: null,    
+    error: null, 
   },
   reducers: {
     setUser(state, action) {
@@ -68,7 +65,7 @@ const authSlice = createSlice({
     builder
       .addCase(signUp.pending, (state) => {
         state.isLoading = true
-        state.error = null      
+        state.error = null       
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false
@@ -99,7 +96,7 @@ const authSlice = createSlice({
       })
       .addCase(signOut.fulfilled, (state) => {
         state.isLoading = false
-        state.user = null    
+        state.user = null   
         state.role = 'user'  
       })
       .addCase(signOut.rejected, (state, action) => {

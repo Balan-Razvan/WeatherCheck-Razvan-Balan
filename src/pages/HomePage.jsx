@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useWeather } from "../hooks/useWeather";
@@ -105,6 +104,7 @@ export default function HomePage() {
           {Math.round(current.wind_speed_10m)} km/h wind
         </p>
 
+        <div className="border-t border-border-subtle mb-10" />
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
