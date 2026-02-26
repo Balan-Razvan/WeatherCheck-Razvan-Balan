@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import NotFoundPage from './pages/NotFoundPage'
 import AirQualityPage from './pages/AirQualityPage'
+import ContactPage from './pages/ContactPage'
 
 export default function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/recents" element={<RecentsPage />} />
           <Route path="/air-quality" element={<AirQualityPage />} />
+          <Route path='/contact' element={<ContactPage />}></Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="*" element={<NotFoundPage />} />

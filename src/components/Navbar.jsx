@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { to: '/search', label: 'Search' },
   { to: '/recents', label: 'Recents' },
   { to: '/air-quality', label: 'Air Quality' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 export default function Navbar() {
