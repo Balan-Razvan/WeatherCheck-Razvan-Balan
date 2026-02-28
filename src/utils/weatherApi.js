@@ -20,7 +20,7 @@ export async function reverseGeocode(latitude, longitude) {
       const name = address?.city || address?.town || address?.village || address?.county
       if (name) return { name, country: address?.country || '' }
     }
-  } catch {}
+  } catch (err) {console.log(err)}
 
   try {
     const res = await fetch(
@@ -31,7 +31,7 @@ export async function reverseGeocode(latitude, longitude) {
       const name = !data.description && (data.city || data.locality || data.principalSubdivision)
       if (name) return { name, country: data.countryName || '' }
     }
-  } catch {}
+  } catch (err) {console.log(err)}
 
   throw new Error('Reverse geocoding failed')
 }
